@@ -20,17 +20,20 @@ This program consists of a series of batch scripts designed to manage aliases or
 
 ## System Requirements
 - Operating System: Windows
-- Command Prompt or PowerShell
+- Command Prompt
 - Execution permissions for batch files
 
 ## Installation
-1. Download and extract the contents of the ZIP file into a directory of your choice.
+1. Clone the repo
+```
+git clone https://github.com/sulfur/Windows-Alias.git
+```
 2. Ensure all extracted files are located in the same directory.
 
 ## Execution
 1. Run the main `StartMe.bat` file to configure the system:
    ```
-   StartMe.bat
+   StartMe.bat - adds a reg key to Computer\HKEY_CURRENT_USER\Software\Microsoft\ for autorun 
    ```
 2. After configuration, use the aliases defined in `alias.bat` directly in the prompt.
 

@@ -1,32 +1,20 @@
-@ECHO Off
-SETLOCAL
+@echo off
+setlocal EnableDelayedExpansion
 
-:: Prompt for user input
-set /p input_string=Enter a string: 
-echo.
-
-:: Define the total width for centering (e.g., 50 characters)
-SET "width=50"
-
-:: Get the length of the input string
-SET "string_length=0"
-for /L %%A in (12,-1,0) do (
-    SET /A "string_length|=1<<%%A"
-    SET "tmp=%input_string:~0,%string_length%"
-    if not "%tmp%"=="%input_string%" SET /A "string_length-=1"
+set "alias_full_command="
+echo Starting script...
+:collect_args
+if not "%~1"=="" (
+    echo Collecting argument: %~1
+    set "alias_full_command=!alias_full_command! %~1"
+    shift
+    goto collect_args
 )
-
-:: Calculate the number of spaces to center the string
-SET /A "spaces=($width - %string_length%) / 2"
-
-:: Create the padded string
-SET "centered_string="
-for /L %%i in (1,1,%spaces%) do SET "centered_string=!centered_string! "
-
-:: Concatenate the input string with the spaces
-SET "centered_string=!centered_string!!input_string!"
-
-:: Output the centered string
-echo !centered_string!
-
-GOTO :EOF
+:: Execute the collected command
+echo Command to execute: !alias_full_command!
+call!alias_full_command!
+if errorlevel 1 (
+    echo Error executing command
+    exit /b 1
+)
+endlocal

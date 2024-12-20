@@ -10,6 +10,12 @@ set "AQUA=%ESC%[36m"
 set "RESET=%ESC%[0m"
 set "GREEN=%ESC%[32m"
 
-start cmd /k "cd /d %current_path% && echo %GREEN% Restart succeded! - %PURPLE% Alias by %AQUA%@sulf" %RESET%
+if "%~1"=="" (
+    set "message=%GRAY% Restart succeeded! - %PURPLE% Alias by %AQUA%@sulf"
+) else (
+    set "message=%GRAY%%~1 - %PURPLE% Alias by %AQUA%@sulf"
+)
 
+start cmd /k "cd /d %current_path% && echo %message% %RESET%"
+call "%~dp0fix.bat"
 exit
